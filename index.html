@@ -2,7 +2,20 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+        <script>
+            // Hàm lấy tham số từ URL
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Hiển thị giá trị 'key' vào thẻ <code>
+            window.onload = function() {
+                const key = getQueryParam("key") || "Link không hợp lệ";
+                document.getElementById("text1").innerText = key;
+            };
+        </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta http-equiv="content-language" content="vi" />
@@ -21,31 +34,31 @@
     <meta property="article:section" content="" />
     <meta property="article:tag" content="" />
 
-    <link rel="icon" href="/assets/default/images/adminfav.png"/>
-    <link rel="apple-touch-icon" href="/assets/default/images/adminfav.png" />
+    <link rel="icon" href="assets/default/images/adminfav.png"/>
+    <link rel="apple-touch-icon" href="assets/default/images/adminfav.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="/assets/default/plugins/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="/assets/default/plugins/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="/assets/default/plugins/select2/css/select2.min.css" />
-    <link rel="stylesheet" href="/assets/default/plugins/fancybox/fancybox.min.css" />
-    <link rel="stylesheet" href="/assets/default/fonts/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="/assets/default/css/base.css?1691906155" />
-    <link rel="stylesheet" href="/assets/default/css/style.css?1691906155" />
+    <link rel="stylesheet" href="assets/default/plugins/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/default/plugins/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/default/plugins/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/default/plugins/fancybox/fancybox.min.css" />
+    <link rel="stylesheet" href="assets/default/fonts/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/default/css/base.css?1691906155" />
+    <link rel="stylesheet" href="assets/default/css/style.css?1691906155" />
 <meta property="og:image" content="https://s120-ava-talk.zadn.vn/0/7/b/9/38/120/a3a8a88d4801663da40acbb025fe160f.jpg"> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"> 
-    <script type="text/javascript" src="/assets/default/plugins/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/default/plugins/bootstrap/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="/assets/default/plugins/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="/assets/default/plugins/select2/js/select2.min.js"></script>
-    <script type="text/javascript" src="/assets/default/plugins/fancybox/fancybox.min.js"></script>
-    <script type="text/javascript" src="/assets/default/plugins/swal/sweetalert2.all.min.js"></script>
-    <script type="text/javascript" src="/assets/default/plugins/cookie/cookie.min.js"></script>
-    <script type="text/javascript" src="/assets/default/js/app.js?1691906155"></script>
+    <script type="text/javascript" src="assets/default/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/select2/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/fancybox/fancybox.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/swal/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/cookie/cookie.min.js"></script>
+    <script type="text/javascript" src="assets/default/js/app.js?1691906155"></script>
     <script>
         function onloadCallback() {
             grecaptcha.ready(function() {
@@ -104,10 +117,10 @@
                     <div class="col-md-12 col-lg-10">
                         <div class="profile-inner">
                             <div class="profile-avatar">
-                                <img src="/assets/default/images/m1UG0Bd.jpeg" alt="">
+                                <img src="assets/default/images/m1UG0Bd.jpeg" alt="">
                             </div>
                             <div class="profile-title">
-                                𝓓𝓸 𝓝𝓰𝓾𝔂𝓮𝓷 𝓓𝓪𝓷𝓰 𝓚𝓱𝓸𝓲 <img src="/assets/default/images/verify.gif" alt="Đã Xác Minh" style="height: 23px;">
+                                𝓓𝓸 𝓝𝓰𝓾𝔂𝓮𝓷 𝓓𝓪𝓷𝓰 𝓚𝓱𝓸𝓲 <img src="assets/default/images/verify.gif" alt="Đã Xác Minh" style="height: 23px;">
                             </div>
                             <div class="profile-boxs">
                                 <div class="row row-col-15">
@@ -127,7 +140,7 @@
                                                     </p>
                                                     <p>
                                                         <span>
-                                                        <img src="/assets/default/images/icons8-zalo-50.png" alt="">
+                                                        <img src="assets/default/images/icons8-zalo-50.png" alt="">
                                                     </span> <b>NHÓM ZALO: </b>
                                                         <a href="https://zalo.me/g/zvzsrw324" target="_blank">
                                                         Cộng đồng KKtool                                                   </a>
@@ -141,7 +154,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="profile-box_content__image">
-                                                    <img src="/assets/default/images/information.png " height="15">
+                                                    <img src="assets/default/images/information.png " height="15">
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +168,7 @@
                                                     <b>⭐ CUNG CẤP TOOL MMO (FACEBOOK, INSTAGRAM, THREADS, TWITTER, ZALO) - MUA KEY TOOL XIN LIÊN HỆN ADMIN ⭐ </b>
                                                 </div>
                                                 <div class="profile-box_content__image">
-                                                    <img src="/assets/default/images/ssl-certificate.png" alt="">
+                                                    <img src="assets/default/images/ssl-certificate.png" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -170,11 +183,11 @@
                                             <div class="profile-box_content__title">
                                                 THÔNG TIN BANK </div>
                                             <ul class="pl-3 mb-0">
-                                                <li class="oo9gr5id" dir="auto"> <img src="/assets/default/images/momo.png" height="15">
+                                                <li class="oo9gr5id" dir="auto"> <img src="assets/default/images/momo.png" height="15">
                                                     <font color="#000000"><strong>MOMO: </strong>0337660475 -
                                                         <font color="#ff0000"><b>DO ANH QUAN</b></font>
                                                         <font color="#000000"> <a href="javascript:void(0)" class="copy-text" data-text="0337660475"><i class="fas fa-copy"></i></a>
-                                                            <li class="oo9gr5id" dir="auto"> <img src="/assets/default/images/mbbank.jpeg" height="15"> <strong>MBANK: </strong>7573037794195 -
+                                                            <li class="oo9gr5id" dir="auto"> <img src="assets/default/images/mbbank.jpeg" height="15"> <strong>MBANK: </strong>7573037794195 -
                                                                 <font color="#ff0000"><b>DO ANH QUAN</b></font>
                                                                 <font color="#000000"> <a href="javascript:void(0)" class="copy-text" data-text="7573037794195"><i class="fas fa-copy"></i></a>
 
@@ -186,7 +199,7 @@
                                 <br>
                                 <br>
                                 <button type="button" class="profile-box profile-box_nopr" style="border: 1.5px solid var(--primary-color);border-radius: 10px;-moz-border-radius: 24px;-webkit-border-radius:20px;font-size: 1.5rem;width: 100%;">
-                                    <code id="text1">{{ key }}</code>  <!-- Sử dụng Jinja2 để hiển thị giá trị 'key' -->
+                                    <code id="text1"></code></p>
                                     <a onclick="copyToClipboard('text1')"><i class='fa fa-copy'></i></a>
                                 </button>
                                 <br><br>
