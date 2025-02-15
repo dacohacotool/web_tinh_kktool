@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trình Diễn File Tool</title>
+    <title>Download KKTOOL - HACOTOOL</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,26 +67,63 @@
         .download-btn:hover {
             background: #218838;
         }
+        .file-subtitle {
+            background: #ffc107;
+            color: #333;
+            padding: 5px;
+            font-size: 0.9em;
+            border-radius: 5px;
+            margin-top: 5px;
+            width: fit-content;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <img src="assets/image/kktool.jpg" alt="Website Logo" class="logo">
-        <h2>Danh Sách File Tool Tải Xuống</h2>
+        <h2>Tool Miễn Phí</h2>
         <ul class="file-list" id="fileList">
             <!-- Danh sách file sẽ được thêm vào đây bằng JavaScript -->
         </ul>
     </div>
 
     <script>
+
         const files = [
-            { name: "(CLOSED) Gộp KKTOOL", url: "https://cdn.jsdelivr.net/gh/dacohacotool/data_version_kktool@main/kktool.py", note: "Tool gộp nhiều chức năng", image: "assets/image/kktool_.png" },
-            { name: "Golike TIKTOK ADB", url: "https://cdn.jsdelivr.net/gh/dacohacotool/data_version_kktool@main/Golike_Tiktok_ADB.py", note: "+Hỗ trợ full jobs như Follow,Like,Comment <br>+Điều khiển điện thoại qua ADB, tự động hoá 100%<br>+Nhiều tính năng như CheckCmt,Check Follow", image: "assets/image/adb_gltt.png" },
-            { name: "[Dành cho PC] Haco Tool", url: "https://t.me/haco_official/6/2450", note: "Auto Tiktok một số web như TDS/Golike tự động 100% với ADB.<br>+Chạy full jobs, hỗ trợ comment<br>+Hỗ trợ SamsungKeyboard/Gboard không cần cài phím ngoài<br>+Nhiều tính năng như Tự Thêm tài khoản, Unfollow, Đổi tài khoản tiktok, Check follow, tắt màn hình,...", image: "assets/image/haco_demol.png" }
+            { 
+                name: "(CLOSED) Gộp KKTOOL", 
+                url: "https://cdn.jsdelivr.net/gh/dacohacotool/data_version_kktool@main/kktool.py", 
+                note: "Tool gộp nhiều chức năng", 
+                subtitle: "FREE - 30h/1key - 1link/1key", 
+                image: "assets/image/kktool_.png" 
+            },
+            { 
+                name: "Golike TIKTOK ADB", 
+                
+                url: "https://cdn.jsdelivr.net/gh/dacohacotool/data_version_kktool@main/KKv2.py", 
+                note: "+Hỗ trợ full jobs như Follow,Like,Comment <br>+Điều khiển điện thoại qua ADB, tự động hoá 100%<br>+Nhiều tính năng như CheckCmt,Check Follow", 
+                subtitle: "FREE - 12h/1 key", 
+                image: "assets/image/adb_gltt.png" 
+            },
+            { 
+                name: "Golike TIKTOK (Tiktok Thường, Tiktok Lite, Tiktok Now)", 
+                
+                url: "https://cdn.jsdelivr.net/gh/dacohacotool/data_version_kktool@main/KKv2.py", 
+                note: "+Chuyển hướng link<br>+Hỗ trợ Tiktok Thường, Tiktok Now, Tiktok Lite<br>+Lọc nhiệm vụ đã làm<br>+Check Link, link die tự bỏ qua", 
+                subtitle: "FREE - 12h/1 key", 
+                image: "assets/image/golike_tiktok.png" 
+            },
+            { 
+                name: "[Dành cho PC] Haco Tool", 
+                url: "https://t.me/haco_official/6/2450", 
+                note: "Auto Tiktok một số web như TDS/Golike tự động 100% với ADB.<br>+Chạy full jobs, hỗ trợ comment<br>+Hỗ trợ SamsungKeyboard/Gboard không cần cài phím ngoài<br>+Nhiều tính năng như Tự Thêm tài khoản, Unfollow, Đổi tài khoản tiktok, Check follow, tắt màn hình,...", 
+                subtitle: "FREE - 6h/2link - Đăng ký VIP để dùng full chức năng", 
+                image: "assets/image/haco_demol.png" 
+            }
         ];
 
-        const fileList = document.getElementById("fileList");
-        
         files.forEach(file => {
             const li = document.createElement("li");
             li.classList.add("file-item");
@@ -95,6 +132,10 @@
             fileTitle.classList.add("file-title");
             fileTitle.textContent = file.name;
 
+            const fileSubtitle = document.createElement("div");
+            fileSubtitle.classList.add("file-subtitle");
+            fileSubtitle.textContent = file.subtitle;
+
             const fileImage = document.createElement("img");
             fileImage.classList.add("file-image");
             fileImage.src = file.image;
@@ -102,7 +143,7 @@
 
             const fileNote = document.createElement("div");
             fileNote.classList.add("file-note");
-            fileNote.innerHTML  = file.note;
+            fileNote.innerHTML = file.note;
 
             const downloadBtn = document.createElement("button");
             downloadBtn.classList.add("download-btn");
@@ -110,6 +151,7 @@
             downloadBtn.onclick = () => window.location.href = file.url;
             
             li.appendChild(fileTitle);
+            li.appendChild(fileSubtitle);
             li.appendChild(fileImage);
             li.appendChild(fileNote);
             li.appendChild(downloadBtn);
