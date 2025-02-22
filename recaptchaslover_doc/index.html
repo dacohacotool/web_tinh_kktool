@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Giải Recaptcha V2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+         
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1, #fbc2eb);
+            background-size: 700% 700%;
+            animation: gradientBG 10s ease infinite;
+            font-family: Arial, sans-serif;
+             margin: 0; padding: 20px; 
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container { max-width: 900px; margin: auto; }
+        .box { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .title { font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #007bff; text-transform: uppercase; }
+        .note { font-size: 14px; color: #666; font-style: italic; }
+        pre { background: #282c34; color: #b0f6ff; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        .test-box { border-top: 3px solid #007bff; padding-top: 20px; text-align: center; }
+        .button { background: #007bff; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+        .loading { display: none; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #007bff; border-radius: 50%; animation: spin 1s linear infinite; margin: 10px auto; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+    </style>
+    <link rel="stylesheet" href="assets/default/plugins/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/default/plugins/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/default/plugins/fancybox/fancybox.min.css" />
+    <link rel="stylesheet" href="assets/default/fonts/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/default/css/base.css?1691906155" />
+    <link rel="stylesheet" href="assets/default/css/style.css?1691906155" />
+    <script type="text/javascript" src="assets/default/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/select2/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/fancybox/fancybox.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/swal/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="assets/default/plugins/cookie/cookie.min.js"></script>
+    <script type="text/javascript" src="assets/default/js/app.js?1691906155"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="title">1. Giới thiệu</div>
+            <p>API giải Recaptcha V2 (Visible) cho phép người dùng gửi URL có captcha và nhận về token giải captcha.</p>
+        </div>
+        <div class="box">
+            <div class="title">2. Endpoint API</div>
+            <p><strong>URL API:</strong> <code>https://hacotoolmaidinh.serveo.net/giai_recapcha_v2</code></p>
+            <p><strong>Phương thức:</strong> GET</p>
+        </div>
+        <div class="box">
+            <div class="title">3. Tham số truyền vào</div>
+            <table border="1" cellpadding="5" cellspacing="0" width="100%">
+                <tr><th>Tên tham số</th><th>Kiểu dữ liệu</th><th>Mô tả</th></tr>
+                <tr><td>url</td><td>string</td><td>URL trang chứa captcha</td></tr>
+                <tr><td>proxy</td><td>string</td><td>Bắt buộc. Hỗ trợ dạng IP:PORT hoặc IP:PORT:USER:PASS</td></tr>
+            </table>
+        </div>
+        <div class="box">
+            <div class="title">4. Cách gọi API</div>
+            <pre>GET https://hacotoolmaidinh.serveo.net/giai_recapcha_v2?url=&lt;URL_CUA_BAN&gt;&proxy=&lt;PROXY_CUA_BAN&gt;</pre>
+            <pre>GET https://hacotoolmaidinh.serveo.net/giai_recapcha_v2?url=https://traodoisub.com/view/chtiktok/&proxy=14.225.55.47:12345:ubpv1z2m:uBPV1z2M</pre>
+        </div>
+        <div class="box">
+            <div class="title">5. Phản hồi từ API</div>
+            <p class="note">Dưới đây là các trường hợp phản hồi từ API:</p>
+            <pre>{"success": true, "message": "Solver Success", "token": "03AGdBq24g..."}</pre>
+        </div>
+        <div class="box">
+            <div class="title">6. Code mẫu</div>
+            <div><strong>Python</strong></div>
+            <pre>
+import requests
+
+url = "https://hacotoolmaidinh.serveo.net/giai_recapcha_v2"
+params = {
+    "url": "https://example.com",
+    "proxy": "14.225.55.47:12345:username:password"
+}
+response = requests.get(url, params=params)
+print(response.json())
+            </pre>
+            <div><strong>PHP</strong></div>
+            <pre>
+$url = "https://hacotoolmaidinh.serveo.net/giai_recapcha_v2";
+$params = [
+    "url" => "https://example.com",
+    "proxy" => "14.225.55.47:12345:username:password"
+];
+$query = http_build_query($params);
+$response = file_get_contents("$url?$query");
+echo $response;
+            </pre>
+        </div>
+        <div class="box">
+            <div class="title">7. Lưu ý</div>
+            <p>- API xử lý từng request một, nếu server bận, vui lòng thử lại.</p>
+            <p>- Đảm bảo proxy hoạt động tốt.</p>
+        </div>
+        <div class="box test-box">
+            <div class="title">Test API</div>
+            <input type="text" id="url" placeholder="Nhập URL" style="padding:5px; width:80%"><br><br>
+            <input type="text" id="proxy" placeholder="Nhập Proxy" style="padding:5px; width:80%"><br><br>
+            <button class="button" onclick="testAPI()">Gửi Request</button>
+            <div class="loading" id="loading"></div>
+            <pre id="response"></pre>
+        </div>
+    </div>
+    <script>
+        function testAPI() {
+            let url = document.getElementById('url').value;
+            let proxy = document.getElementById('proxy').value;
+            let responseBox = document.getElementById('response');
+            let loading = document.getElementById('loading');
+            
+            if (!url || !proxy) {
+                alert('Vui lòng nhập đầy đủ URL và Proxy!');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            responseBox.innerHTML = '';
+            
+            fetch(`https://hacotoolmaidinh.serveo.net/giai_recapcha_v2?url=${encodeURIComponent(url)}&proxy=${encodeURIComponent(proxy)}`)
+                .then(response => response.json())
+                .then(data => {
+                    responseBox.innerHTML = JSON.stringify(data, null, 4);
+                    loading.style.display = 'none';
+                })
+                .catch(error => {
+                    responseBox.innerHTML = 'Lỗi kết nối đến API';
+                    loading.style.display = 'none';
+                });
+        }
+    </script>
+</script> 
+</div>
+<div class="snowflakes" aria-hidden="true">
+<div class="snowflake">😭</div>
+<div class="snowflake">😤</div>
+<div class="snowflake">😋</div>
+<div class="snowflake">t.me/kk_tool</div>
+<div class="snowflake">Xem chùa qài</div>
+<div class="snowflake">Yt: @kk_tool_1</div>
+<div class="snowflake">fb: fb.me/dkcuti09</div>
+<div class="snowflake">Xem chùa qài</div>
+<div class="snowflake">🖕</div>
+<div class="snowflake">☘️</div>
+<div class="snowflake">🤡</div>
+<div class="snowflake">🥰</div>
+<div class="snowflake">💕</div>
+<div class="snowflake">❤️</div>
+<div class="snowflake">😅</div>
+</div>
+<style>
+
+@-webkit-keyframes snowflakes-fall {
+0% {top:-10%}
+100% {top:100%}
+}
+@-webkit-keyframes snowflakes-shake {
+0%,100% {-webkit-transform:translateX(0);transform:translateX(0)}
+50% {-webkit-transform:translateX(80px);transform:translateX(80px)}
+}
+@keyframes snowflakes-fall {
+0% {top:-10%}
+100% {top:100%}
+}
+@keyframes snowflakes-shake {
+0%,100%{ transform:translateX(0)}
+50% {transform:translateX(80px)}
+}
+.snowflake {
+color: #ff0000;
+font-size: 1em;
+font-family: Arial, sans-serif;
+text-shadow: 0 0 5px #000;
+position:fixed;
+top:-10%;
+z-index:9999;
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
+cursor:default;
+-webkit-animation-name:snowflakes-fall,snowflakes-shake;
+-webkit-animation-duration:10s,3s;
+-webkit-animation-timing-function:linear,ease-in-out;
+-webkit-animation-iteration-count:infinite,infinite;
+-webkit-animation-play-state:running,running;
+animation-name:snowflakes-fall,snowflakes-shake;
+animation-duration:10s,3s;
+animation-timing-function:linear,ease-in-out;
+animation-iteration-count:infinite,infinite;
+animation-play-state:running,running;
+}
+.snowflake:nth-of-type(0){
+left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s
+}
+.snowflake:nth-of-type(1){
+left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s
+}
+.snowflake:nth-of-type(2){
+left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s
+}
+.snowflake:nth-of-type(3){
+left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s
+}
+.snowflake:nth-of-type(4){
+left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s
+}
+.snowflake:nth-of-type(5){
+left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s
+}
+.snowflake:nth-of-type(6){
+left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s
+}
+.snowflake:nth-of-type(7){
+left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s
+}
+.snowflake:nth-of-type(8){
+left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s
+}
+.snowflake:nth-of-type(9){
+left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s
+}
+.snowflake:nth-of-type(10){
+left:25%;-webkit-animation-delay:2s,0s;animation-delay:2s,0s
+}
+.snowflake:nth-of-type(11){
+left:65%;-webkit-animation-delay:4s,2.5s;animation-delay:4s,2.5s
+}
+</style>
+<script>
+function GiangLy() {
+
+audio.play();
+
+}
+const GiangLy_List = [
+"/nhac/trichtien.mp3", //trichtien
+"/nhac/pikachu.mp3", //pikachu
+];
+//Random music
+let index = Math.floor(Math.random() * GiangLy_List.length);
+const audio = new Audio(GiangLy_List[index]);
+function GiangLy() {
+audio.play();
+}
+document.addEventListener("click", GiangLy);
+audio.addEventListener("ended", function() {
+index = (index + 1) % GiangLy_List.length;
+audio.src = GiangLy_List[index];
+audio.play();
+});
+</script> 
+</body>
+</html>
+
+</body>
+</html>
