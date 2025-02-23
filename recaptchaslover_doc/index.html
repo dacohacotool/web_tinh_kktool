@@ -6,34 +6,177 @@
     <title>API Giải Recaptcha V2</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-         
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1, #fbc2eb);
-            background-size: 700% 700%;
-            animation: gradientBG 10s ease infinite;
-            font-family: Arial, sans-serif;
-             margin: 0; padding: 20px; 
-        }
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 700% 700%;
+    animation: gradientBG 10s ease infinite;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box; /* Đảm bảo tất cả phần tử có padding và border tính vào chiều rộng */
+}
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .container { max-width: 900px; margin: auto; }
-        .box { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .title { font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #007bff; text-transform: uppercase; }
-        .note { font-size: 14px; color: #666; font-style: italic; }
-        pre { background: #282c34; color: #b0f6ff; padding: 10px; border-radius: 5px; overflow-x: auto; }
-        .test-box { border-top: 3px solid #007bff; padding-top: 20px; text-align: center; }
-        .button { background: #007bff; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
-        .loading { display: none; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #007bff; border-radius: 50%; animation: spin 1s linear infinite; margin: 10px auto; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .container {
+            width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng màn hình */
+            max-width: 1200px; /* Giới hạn chiều rộng tối đa cho container */
+            margin: auto;
+            padding: 0 15px; /* Thêm padding để tránh văn bản bị dính vào viền màn hình */
+            box-sizing: border-box;
+        }
+
+        .box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%; /* Đảm bảo box chiếm toàn bộ chiều rộng của container */
+            box-sizing: border-box;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .title, p, pre, .note {
+            word-wrap: break-word;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #007bff;
+            text-transform: uppercase;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        pre {
+            background: #282c34;
+            color: #b0f6ff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .test-box {
+            border-top: 3px solid #007bff;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%; /* Nút có thể co giãn đầy đủ trên các màn hình nhỏ */
+            box-sizing: border-box;
+            margin-top: 10px; /* Thêm khoảng cách trên nút */
+        }
+
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 100%; /* Chiếm toàn bộ chiều rộng của box */
+            box-sizing: border-box;
+            margin-bottom: 10px; /* Thêm khoảng cách dưới input */
+        }
+
+        a {
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        @media screen and (max-width: 768px) {
+            .title {
+                font-size: 18px; /* Giảm kích thước font cho các tiêu đề */
+            }
+
+            .box {
+                padding: 10px; /* Giảm padding trong các box */
+            }
+
+            input[type="text"], .button {
+                padding: 8px; /* Giảm padding cho các input và button */
+            }
+        }
+        .feature-card {
+            background-color: var(--white, #ffffff);
+            box-shadow: var(--primary-bshadow, 0px 15px 35px 0px rgba(0, 0, 0, 0.1));
+            border: 2px solid transparent;
+            transition: all 0.3s ease-in-out;
+            width: 100%;
+            max-width: 100%;
+        }
+        .feature-card:hover {
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 100%;
+        }
+        .feature-card b {
+            font-size: var(--h5size, 20px);
+            width: 100%;
+            max-width: 100%;
+        }
+        .home-heading h3 {
+            color: var(--heading, #39404a);
+            width: 100%;
+            max-width: 100%;
+        }
+        #order-list {
+            background-color: transparent !important;
+            border: 2px solid rgba(255, 255, 255, 0);
+       
+            overflow-y: auto;
+            max-height: 400px;
+            width: 100%;
+            max-width: 100%;
+      
+        }
+
+        .row {
+            background-color: transparent !important;
+            width: 100%;
+            max-width: 100%;
+        }
         
     </style>
+   
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="assets/default/css/bootstrap.min.css" />
+    <script defer src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="assets/default/plugins/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/default/plugins/select2/css/select2.min.css" />
     <link rel="stylesheet" href="assets/default/plugins/fancybox/fancybox.min.css" />
@@ -48,6 +191,40 @@
     <script type="text/javascript" src="assets/default/plugins/swal/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="assets/default/plugins/cookie/cookie.min.js"></script>
     <script type="text/javascript" src="assets/default/js/app.js?1691906155"></script>
+    <script>
+     const fetchOrders = () => {
+            fetch('https://hacotoolmaidinh.serveo.net/get_ds_gan_day')
+                .then(response => response.json())
+                .then(orders => {
+                    const orderContainer = document.getElementById("order-list");
+                    orderContainer.innerHTML = "";
+                    orders.slice(-500).forEach(order => {
+                        const orderElement = document.createElement("div");
+                        orderElement.classList.add("feature-card", "mb-2", "p-2", "rounded");
+                        orderElement.innerHTML = `
+                            <div class="feature-content">
+                                <div class="row p-2">
+                                    <div class="col-10">
+                                        <b style="color: green;">${order.id}</b> mua <b style="color: red;">${order.quantity}</b> 
+                                        <b>${order.item}</b> với giá <b style="color:blue;">${order.price.toLocaleString()}đ</b>
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <span class="badge bg-primary">${order.time}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        orderContainer.appendChild(orderElement);
+                    });
+                })
+                .catch(error => console.error('Lỗi tải đơn hàng:', error));
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchOrders();
+            setInterval(fetchOrders, 3000);
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -144,9 +321,22 @@ echo $response;
                     loading.style.display = 'none';
                 });
         }
+    
     </script>
+    <div class="container mt-4">
+        <div class="col-lg-6 mb-3">
+            <div class="home-heading mb-3">
+                <div class="title">Lịch Sử Giải Captcha</div>
+            </div>
+       
+            <div id="order-list" style="height:350px; overflow-x:hidden; overflow-y:auto;" class="border p-2 rounded">
+            </div>
+        </div>
+    </div>
 </script> 
+
 </div>
+
 <div class="snowflakes" aria-hidden="true">
 <div class="snowflake">😭</div>
 <div class="snowflake">😤</div>
