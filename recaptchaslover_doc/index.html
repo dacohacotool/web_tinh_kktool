@@ -233,52 +233,138 @@
             <p>API giải Recaptcha V2 (Visible) cho phép người dùng gửi URL có captcha và nhận về token giải captcha.</p>
         </div>
         <div class="box">
-            <div class="title">2. Endpoint API</div>
-            <p><strong>URL API:</strong> <code>https://hacotoolmaidinh.serveo.net/giai_recapcha_v2</code></p>
+            <div class="title">2. Get Host</div>
+            <p><strong>URL API:</strong> <code>https://github.com/dacohacotool/host_kk/raw/refs/heads/main/url_host_recaptcha_slover.txt</code></p>
             <p><strong>Phương thức:</strong> GET</p>
+            <p><strong>Trả về</strong> Địa chỉ máy chủ</p>
+            <p>Để tránh bị ddoss chúng tôi buộc phải thay đổi địa chỉ thường xuyên</p>
         </div>
         <div class="box">
-            <div class="title">3. Tham số truyền vào</div>
+            <div class="title">3. Create Request</div>
+            <p><strong>URL API:</strong> <code>https://{host}/giai_recapcha_v2/create</code></p>
+            <p><strong>Phương thức:</strong> GET</p>
+     
+            <div class="title">Tham số truyền vào</div>
             <table border="1" cellpadding="5" cellspacing="0" width="100%">
                 <tr><th>Tên tham số</th><th>Kiểu dữ liệu</th><th>Mô tả</th></tr>
                 <tr><td>url</td><td>string</td><td>URL trang chứa captcha</td></tr>
                 <tr><td>proxy</td><td>string</td><td>Bắt buộc. Hỗ trợ dạng IP:PORT hoặc IP:PORT:USER:PASS</td></tr>
             </table>
+            <div class="title">Ví dụ</div>
+            <pre>GET https://{host}/giai_recapcha_v2/create?url=&lt;URL_CUA_BAN&gt;&proxy=&lt;PROXY_CUA_BAN&gt;</pre>
+            <pre>GET https://https://decades-excellence-td-chinese.trycloudflare.com/giai_recapcha_v2/create?url=https://traodoisub.com/view/chtiktok/&proxy=14.225.55.47:12345:ubpv1z2m:uBPV1z2M</pre>
+            <p>Link có thể không hợp lệ do host đã thay đổi, vui lòng cập nhập địa chỉ mới ở link phần 1</p>
+            <div class="title">Gía trị trả về</div>
+            <pre>{"id":"8JkWRn7y35nqbqJ2iWjn","message":"in progress, please wait","success":true}</pre>
+            <table border="1" cellpadding="5" cellspacing="0" width="100%">
+                <tr><th>Tên tham số</th><th>Kiểu dữ liệu</th><th>Mô tả</th></tr>
+                <tr><td>id</td><td>string</td><td>Lưu id để nhận kết quả</td></tr>
+            </table>
+            <p><strong>Yêu cầu thất bại</strong></p>
+            <pre> {"message":"{nguyen nhan loi}","success":False}</pre>
+            <p><strong>Máy chủ nhận quá nhiều yêu cầu</strong></p>
+            <pre> {'success': False, 'message': 'Server is busy, please try again after 10 seconds', 'token': 'null'}</pre>
+            <p><strong>Toàn bộ phiên đang bận</strong></p>
+            <pre> {"message":"All servers are busy","success":False}</pre>
         </div>
         <div class="box">
-            <div class="title">4. Cách gọi API</div>
-            <pre>GET https://hacotoolmaidinh.serveo.net/giai_recapcha_v2?url=&lt;URL_CUA_BAN&gt;&proxy=&lt;PROXY_CUA_BAN&gt;</pre>
-            <pre>GET https://hacotoolmaidinh.serveo.net/giai_recapcha_v2?url=https://traodoisub.com/view/chtiktok/&proxy=14.225.55.47:12345:ubpv1z2m:uBPV1z2M</pre>
+            <div class="title">4. Get Result</div>
+            <p><strong>URL API:</strong> <code>https://{host}/giai_recapcha_v2/create</code></p>
+            <p><strong>Phương thức:</strong> GET</p>
+     
+            <div class="title">Tham số truyền vào</div>
+            <table border="1" cellpadding="5" cellspacing="0" width="100%">
+                <tr><th>Tên tham số</th><th>Kiểu dữ liệu</th><th>Mô tả</th></tr>
+                <tr><td>id</td><td>string</td><td>id ở bước create request</td></tr>
+            </table>
+            <div class="title">Ví dụ</div>
+            <pre>GET https://{host}/giai_recapcha_v2/get_result?id=&lt;ID_DA_NHAN&gt;</pre>
+            <pre>GET https://https://decades-excellence-td-chinese.trycloudflare.com/giai_recapcha_v2/get_result?id=8JkWRn7y35nqbqJ2iWjn</pre>
+            <p>Qúa trình giải captcha có thể mất tới 15giây !!!</p>
+            <div class="title">Gía trị trả về</div>
+            <p><strong>Chưa giải xong</strong></p>
+            <pre> {'success': False, 'message': 'in progress, please wait', 'token': 'null'}</pre>
+            <p><strong>Giải thành công</strong></p>
+            <pre> {"success": true, "message": "Solver Success", "token": "03AGdBq24g..."}</pre>
+            <p><strong>Giải thất bại</strong></p>
+            <pre> {'success': False, 'message': '{nguyen nhan loi}', 'token': 'null'}</pre>
         </div>
+       
         <div class="box">
-            <div class="title">5. Phản hồi từ API</div>
-            <p class="note">Dưới đây là các trường hợp phản hồi từ API:</p>
-            <pre>{"success": true, "message": "Solver Success", "token": "03AGdBq24g..."}</pre>
-        </div>
-        <div class="box">
-            <div class="title">6. Code mẫu</div>
+            <div class="title">5. Code mẫu</div>
             <div><strong>Python</strong></div>
             <pre>
-import requests
+import requests,time
 
-url = "https://hacotoolmaidinh.serveo.net/giai_recapcha_v2"
-params = {
-    "url": "https://example.com",
-    "proxy": "14.225.55.47:12345:username:password"
-}
-response = requests.get(url, params=params)
-print(response.json())
+# Lấy host từ file
+host = requests.get("https://raw.githubusercontent.com/dacohacotool/host_kk/refs/heads/main/url_host_recaptcha_slover.txt").text.strip()
+
+# Tạo yêu cầu recaptcha
+response_create = requests.get(
+    f"https://{host}/giai_recapcha_v2/create",
+    params={
+        "url": "https://example.com",
+        "proxy": "14.225.55.47:12345:username:password"
+    }).json()
+
+print(response_create)
+
+# Lấy ID từ phản hồi
+id = response_create["id"]
+for i in range (20):
+# Nhận kết quả giải captcha
+    response_result = requests.get(f"https://{host}/giai_recapcha_v2/get_result", params={
+        "id": id
+    }).json()
+    if response_result["success"]:
+        token = response_result["token"]
+        break
+    else:
+        time.sleep(1)
+else:
+    token = ''
+    print ('Giai that bai')
+print(token)
             </pre>
             <div><strong>PHP</strong></div>
             <pre>
-$url = "https://hacotoolmaidinh.serveo.net/giai_recapcha_v2";
+// Lấy host từ file
+$host = trim(file_get_contents("https://raw.githubusercontent.com/dacohacotool/host_kk/refs/heads/main/url_host_recaptcha_slover.txt"));
+
+// Tạo yêu cầu recaptcha
 $params = [
-    "url" => "https://example.com",
-    "proxy" => "14.225.55.47:12345:username:password"
+    'url' => 'https://example.com',
+    'proxy' => '14.225.55.47:12345:username:password'
 ];
-$query = http_build_query($params);
-$response = file_get_contents("$url?$query");
-echo $response;
+$response_create = file_get_contents("https://$host/giai_recapcha_v2/create?" . http_build_query($params));
+$response_create = json_decode($response_create, true);
+
+echo json_encode($response_create, JSON_PRETTY_PRINT);
+
+// Lấy ID từ phản hồi
+$id = $response_create["id"];
+
+for ($i = 0; $i < 20; $i++) {
+    // Nhận kết quả giải captcha
+    $response_result = file_get_contents("https://$host/giai_recapcha_v2/get_result?id=$id");
+    $response_result = json_decode($response_result, true);
+
+    if ($response_result["success"]) {
+        $token = $response_result["token"];
+        break;
+    } else {
+        sleep(1);  // Chờ 1 giây trước khi thử lại
+    }
+}
+
+if (!isset($token)) {
+    $token = '';
+    echo 'Giải thất bại';
+}
+
+echo $token;
+
+                
             </pre>
         </div>
         <div class="box">
@@ -286,43 +372,9 @@ echo $response;
             <p>- API xử lý từng request một, nếu server bận, vui lòng thử lại.</p>
             <p>- Đảm bảo proxy hoạt động tốt.</p>
         </div>
-        <div class="box test-box">
-            <div class="title">Test API</div>
-            <input type="text" id="url" placeholder="Nhập URL" style="padding:5px; width:80%"><br><br>
-            <input type="text" id="proxy" placeholder="Nhập Proxy" style="padding:5px; width:80%"><br><br>
-            <button class="button" onclick="testAPI()">Gửi Request</button>
-            <div class="loading" id="loading"></div>
-            <pre id="response"></pre>
-        </div>
+      
     </div>
-    <script>
-        function testAPI() {
-            let url = document.getElementById('url').value;
-            let proxy = document.getElementById('proxy').value;
-            let responseBox = document.getElementById('response');
-            let loading = document.getElementById('loading');
-            
-            if (!url || !proxy) {
-                alert('Vui lòng nhập đầy đủ URL và Proxy!');
-                return;
-            }
-            
-            loading.style.display = 'block';
-            responseBox.innerHTML = '';
-            
-            fetch(`https://hacotoolmaidinh.serveo.net/giai_recapcha_v2?url=${encodeURIComponent(url)}&proxy=${encodeURIComponent(proxy)}`)
-                .then(response => response.json())
-                .then(data => {
-                    responseBox.innerHTML = JSON.stringify(data, null, 4);
-                    loading.style.display = 'none';
-                })
-                .catch(error => {
-                    responseBox.innerHTML = 'Lỗi kết nối đến API';
-                    loading.style.display = 'none';
-                });
-        }
-    
-    </script>
+
     <div class="container mt-4">
         <div class="col-lg-6 mb-3">
             <div class="home-heading mb-3">
