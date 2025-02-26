@@ -196,7 +196,7 @@
     fetch('https://raw.githubusercontent.com/dacohacotool/host_kk/refs/heads/main/url_host_recaptcha_slover.txt')
         .then(response => response.text())
         .then(host => {
-            const apiUrl = `http://192.168.50.249:4543/get_ds_gan_day`;
+            const apiUrl = `${host.trim()}/get_ds_gan_day`;
             return fetch(apiUrl);
         })
         .then(response => response.json())
