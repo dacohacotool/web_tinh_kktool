@@ -192,33 +192,38 @@
     <script type="text/javascript" src="assets/default/plugins/cookie/cookie.min.js"></script>
     <script type="text/javascript" src="assets/default/js/app.js?1691906155"></script>
     <script>
-     const fetchOrders = () => {
-            fetch('https://hacotoolmaidinh.serveo.net/get_ds_gan_day')
-                .then(response => response.json())
-                .then(orders => {
-                    const orderContainer = document.getElementById("order-list");
-                    orderContainer.innerHTML = "";
-                    orders.slice(-500).forEach(order => {
-                        const orderElement = document.createElement("div");
-                        orderElement.classList.add("feature-card", "mb-2", "p-2", "rounded");
-                        orderElement.innerHTML = `
-                            <div class="feature-content">
-                                <div class="row p-2">
-                                    <div class="col-10">
-                                        <b style="color: green;">${order.id}</b> mua <b style="color: red;">${order.quantity}</b> 
-                                        <b>${order.item}</b> với giá <b style="color:blue;">${order.price.toLocaleString()}đ</b>
-                                    </div>
-                                    <div class="col-2 text-end">
-                                        <span class="badge bg-primary">${order.time}</span>
-                                    </div>
-                                </div>
+    const fetchOrders = () => {
+    fetch('https://raw.githubusercontent.com/dacohacotool/host_kk/refs/heads/main/url_host_recaptcha_slover.txt')
+        .then(response => response.text())
+        .then(host => {
+            const apiUrl = `http://192.168.50.249:4543/get_ds_gan_day`;
+            return fetch(apiUrl);
+        })
+        .then(response => response.json())
+        .then(orders => {
+            const orderContainer = document.getElementById("order-list");
+            orderContainer.innerHTML = "";
+            orders.slice(-500).forEach(order => {
+                const orderElement = document.createElement("div");
+                orderElement.classList.add("feature-card", "mb-2", "p-2", "rounded");
+                orderElement.innerHTML = `
+                    <div class="feature-content">
+                        <div class="row p-2">
+                            <div class="col-10">
+                                <b style="color: green;">${order.id}</b> mua <b style="color: red;">${order.quantity}</b> 
+                                <b>${order.item}</b> với giá <b style="color:blue;">${order.price.toLocaleString()}đ</b>
                             </div>
-                        `;
-                        orderContainer.appendChild(orderElement);
-                    });
-                })
-                .catch(error => console.error('Lỗi tải đơn hàng:', error));
-        };
+                            <div class="col-2 text-end">
+                                <span class="badge bg-primary">${order.time}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                orderContainer.appendChild(orderElement);
+            });
+        })
+        .catch(error => console.error('Lỗi tải đơn hàng:', error));
+};
 
         document.addEventListener("DOMContentLoaded", () => {
             fetchOrders();
