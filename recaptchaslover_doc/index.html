@@ -245,10 +245,12 @@
             <p><strong>Phương thức:</strong> GET</p>
             <p><strong>Trả về</strong> Địa chỉ máy chủ</p>
             <p>Để tránh bị ddoss chúng tôi buộc phải thay đổi địa chỉ thường xuyên</p>
+            <div class="title">Gía trị trả về</div>
+            <pre>https://decades-excellence-td-chinese.trycloudflare.com</pre>
         </div>
         <div class="box">
             <div class="title">3. Create Request</div>
-            <p><strong>URL API:</strong> <code>https://{host}/giai_recapcha_v2/create</code></p>
+            <p><strong>URL API:</strong> <code>{host}/giai_recapcha_v2/create</code></p>
             <p><strong>Phương thức:</strong> GET</p>
      
             <div class="title">Tham số truyền vào</div>
@@ -258,8 +260,8 @@
                 <tr><td>proxy</td><td>string</td><td>Bắt buộc. Hỗ trợ dạng IP:PORT hoặc IP:PORT:USER:PASS</td></tr>
             </table>
             <div class="title">Ví dụ</div>
-            <pre>GET https://{host}/giai_recapcha_v2/create?url=&lt;URL_CUA_BAN&gt;&proxy=&lt;PROXY_CUA_BAN&gt;</pre>
-            <pre>GET https://https://decades-excellence-td-chinese.trycloudflare.com/giai_recapcha_v2/create?url=https://traodoisub.com/view/chtiktok/&proxy=14.225.55.47:12345:ubpv1z2m:uBPV1z2M</pre>
+            <pre>GET {host}/giai_recapcha_v2/create?url=&lt;URL_CUA_BAN&gt;&proxy=&lt;PROXY_CUA_BAN&gt;</pre>
+            <pre>GET https://decades-excellence-td-chinese.trycloudflare.com/giai_recapcha_v2/create?url=https://traodoisub.com/view/chtiktok/&proxy=14.225.55.47:12345:ubpv1z2m:uBPV1z2M</pre>
             <p>Link có thể không hợp lệ do host đã thay đổi, vui lòng cập nhập địa chỉ mới ở link phần 1</p>
             <div class="title">Gía trị trả về</div>
             <pre>{"id":"8JkWRn7y35nqbqJ2iWjn","message":"in progress, please wait","success":true}</pre>
@@ -276,7 +278,7 @@
         </div>
         <div class="box">
             <div class="title">4. Get Result</div>
-            <p><strong>URL API:</strong> <code>https://{host}/giai_recapcha_v2/create</code></p>
+            <p><strong>URL API:</strong> <code>{host}/giai_recapcha_v2/create</code></p>
             <p><strong>Phương thức:</strong> GET</p>
      
             <div class="title">Tham số truyền vào</div>
@@ -285,7 +287,7 @@
                 <tr><td>id</td><td>string</td><td>id ở bước create request</td></tr>
             </table>
             <div class="title">Ví dụ</div>
-            <pre>GET https://{host}/giai_recapcha_v2/get_result?id=&lt;ID_DA_NHAN&gt;</pre>
+            <pre>GET {host}/giai_recapcha_v2/get_result?id=&lt;ID_DA_NHAN&gt;</pre>
             <pre>GET https://decades-excellence-td-chinese.trycloudflare.com/giai_recapcha_v2/get_result?id=8JkWRn7y35nqbqJ2iWjn</pre>
             <p>Qúa trình giải captcha có thể mất tới 15giây !!!</p>
             <div class="title">Gía trị trả về</div>
@@ -308,7 +310,7 @@ host = requests.get("https://raw.githubusercontent.com/dacohacotool/host_kk/refs
 
 # Tạo yêu cầu recaptcha
 response_create = requests.get(
-    f"https://{host}/giai_recapcha_v2/create",
+    f"{host}/giai_recapcha_v2/create",
     params={
         "url": "https://example.com",
         "proxy": "14.225.55.47:12345:username:password"
@@ -320,7 +322,7 @@ print(response_create)
 id = response_create["id"]
 for i in range (20):
 # Nhận kết quả giải captcha
-    response_result = requests.get(f"https://{host}/giai_recapcha_v2/get_result", params={
+    response_result = requests.get(f"{host}/giai_recapcha_v2/get_result", params={
         "id": id
     }).json()
     if response_result["success"]:
@@ -343,7 +345,7 @@ $params = [
     'url' => 'https://example.com',
     'proxy' => '14.225.55.47:12345:username:password'
 ];
-$response_create = file_get_contents("https://$host/giai_recapcha_v2/create?" . http_build_query($params));
+$response_create = file_get_contents("$host/giai_recapcha_v2/create?" . http_build_query($params));
 $response_create = json_decode($response_create, true);
 
 echo json_encode($response_create, JSON_PRETTY_PRINT);
@@ -353,7 +355,7 @@ $id = $response_create["id"];
 
 for ($i = 0; $i < 20; $i++) {
     // Nhận kết quả giải captcha
-    $response_result = file_get_contents("https://$host/giai_recapcha_v2/get_result?id=$id");
+    $response_result = file_get_contents("$host/giai_recapcha_v2/get_result?id=$id");
     $response_result = json_decode($response_result, true);
 
     if ($response_result["success"]) {
