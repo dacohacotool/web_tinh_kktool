@@ -111,6 +111,7 @@
     <label for="keyType">Loại key:</label>
     <select id="keyType">
       <option value="kktool">KKtool & KKgen2</option>
+      <option value="KK_GOLIKE_FB">Golike Facebook</option>
       <option value="haco">Haco</option>
     </select>
 
@@ -175,6 +176,11 @@
         7: { 1: 10000, 5: 15000, 10: 20000, "unlimited": 80000 },
         30: { 5: 30000, 10: 45000, 20: 60000, "unlimited": 120000 }
       },
+      KK_GOLIKE_FB: {
+        1: { 1: 5000 },
+        7: { 1: 30000 },
+        30: { 1: 50000 }
+      },
       haco: {
         activeFee: 30000,
         1: { 1: 1000, 10: 5000, 20: 10000, 40: 15000, "unlimited": 20000 },
@@ -182,6 +188,7 @@
         30: { 5: 40000, 10: 60000, 20: 80000, 40: 100000, "unlimited": 140000 }
       }
     };
+
 
     function updateDeviceOptions() {
       const type = keyTypeSelect.value;
