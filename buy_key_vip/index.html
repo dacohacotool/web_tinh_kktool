@@ -136,110 +136,137 @@
     <div class="price" id="price">Giá: 0 VNĐ</div>
 
     <button onclick="taoHoaDon('kktool', 7, 5, true, 15000)">Tạo hóa đơn</button>
+    <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
 
+  <h3 style="text-align: center;">Khôi phục key đã mua</h3>
+
+  <label for="restoreInput">Nhập nội dung chuyển khoản:</label>
+  <input type="text" id="restoreInput" placeholder="VD: MBUteDsdyqQkIfOWIVqMaF" style="width: 100%; padding: 10px; font-size: 15px; border-radius: 8px; margin-top: 6px; border: 1px solid #ccc;"/>
+
+  <button onclick="khoiPhucKey()">Khôi phục key</button>
   </div>
+  
 
   <script>
-  async function taoHoaDon() {
-    try {
-      // Fetch mỗi lần bấm
-      const response = await fetch('https://raw.githubusercontent.com/dacohacotool/host_kk/main/url_serverkey.txt', {
-        cache: 'no-store'  // <- Không cache
+    async function taoHoaDon() {
+      try {
+        // Fetch mỗi lần bấm
+        const response = await fetch('https://raw.githubusercontent.com/dacohacotool/host_kk/main/url_serverkey.txt', {
+          cache: 'no-store'  // <- Không cache
+        });
+
+        if (!response.ok) throw new Error('Không thể tải URL máy chủ');
+
+        const serverURL = (await response.text()).trim();
+
+        // Tạo URL chuyển hướng
+        const { price, devices, type, days, isFirst } = calcPrice();
+        const url = `${serverURL}/tao_hoa_don?type=${encodeURIComponent(type)}&days=${encodeURIComponent(days)}&devices=${encodeURIComponent(devices)}&first=${isFirst ? 1 : 0}&price=${encodeURIComponent(price)}`;
+        
+        // Chuyển tới trang thanh toán
+        window.location.href = url;
+
+      } catch (error) {
+        alert('Lỗi khi tạo hóa đơn: ' + error.message);
+      }
+    }
+      
+      const keyTypeSelect = document.getElementById("keyType");
+      const daysSelect = document.getElementById("days");
+      const deviceSelect = document.getElementById("deviceSelect");
+      const firstActiveCheckbox = document.getElementById("firstActive");
+      const activeContainer = document.getElementById("activeContainer");
+      const priceDisplay = document.getElementById("price");
+      
+      const priceTable = {
+        kktool: {
+          1: { "unlimited": 10000, 1: 2000, 5: 5000 },
+          7: { 1: 10000, 5: 15000, 10: 20000, "unlimited": 80000 },
+          30: { 5: 30000, 10: 45000, 20: 60000, "unlimited": 120000 }
+        },
+        KK_GOLIKE_FB: {
+          1: { 3: 5000 },
+          7: { 3: 30000 },
+          30: { 3: 100000 }
+        },
+        haco: {
+          activeFee: 30000,
+          1: { 1: 1000, 10: 5000, 20: 10000, 40: 15000, "unlimited": 20000 },
+          7: { 2: 10000, 10: 30000, 20: 40000, 40: 60000, "unlimited": 70000 },
+          30: { 5: 40000, 10: 60000, 20: 80000, 40: 100000, "unlimited": 140000 }
+        }
+      };
+      function toggleActivationVisibility() {
+        if (keyTypeSelect.value === "haco") {
+          activeContainer.style.display = "block";
+        } else {
+          activeContainer.style.display = "none";
+          firstActiveCheckbox.checked = false;
+        }
+      }
+
+
+      function updateDeviceOptions() {
+        const type = keyTypeSelect.value;
+        const days = parseInt(daysSelect.value);
+        const pricing = priceTable[type][days];
+
+        deviceSelect.innerHTML = "";
+        for (const device in pricing) {
+          const option = document.createElement("option");
+          option.value = device;
+          option.textContent = device === "unlimited" ? "Không giới hạn" : `${device} máy`;
+          deviceSelect.appendChild(option);
+        }
+      }
+
+      function calcPrice() {
+        const type = keyTypeSelect.value;
+        const days = parseInt(daysSelect.value);
+        const devices = deviceSelect.value;
+        const isFirst = firstActiveCheckbox.checked;
+
+        const pricing = priceTable[type][days];
+        let price = pricing[devices] || 0;
+
+        if (type === "haco" && isFirst) {
+          price += priceTable.haco.activeFee;
+        }
+
+        priceDisplay.innerText = `Giá: ${price.toLocaleString()} VNĐ`;
+        return { price, devices, type, days, isFirst };
+      }
+
+      function khoiPhucKey() {
+        const code = document.getElementById("restoreInput").value.trim();
+        if (!code) {
+          alert("Vui lòng nhập mã giao dịch để khôi phục.");
+          return;
+        }
+        const restoreURL = `https://disorders-egypt-thereby-introduce.trycloudflare.com/thanh_toan?code=${encodeURIComponent(code)}`;
+        window.location.href = restoreURL;
+      }
+      keyTypeSelect.addEventListener("change", () => {
+  
+        updateDeviceOptions();
+        toggleActivationVisibility();
+        calcPrice();
       });
 
-      if (!response.ok) throw new Error('Không thể tải URL máy chủ');
+      daysSelect.addEventListener("change", () => {
+        updateDeviceOptions();
+        toggleActivationVisibility();
+        calcPrice();
+      });
 
-      const serverURL = (await response.text()).trim();
+      deviceSelect.addEventListener("change", calcPrice);
+      firstActiveCheckbox.addEventListener("change", calcPrice);
 
-      // Tạo URL chuyển hướng
-      const { price, devices, type, days, isFirst } = calcPrice();
-      const url = `${serverURL}/tao_hoa_don?type=${encodeURIComponent(type)}&days=${encodeURIComponent(days)}&devices=${encodeURIComponent(devices)}&first=${isFirst ? 1 : 0}&price=${encodeURIComponent(price)}`;
-      
-      // Chuyển tới trang thanh toán
-      window.location.href = url;
-
-    } catch (error) {
-      alert('Lỗi khi tạo hóa đơn: ' + error.message);
-    }
-  }
+      // Init
+      activeContainer.style.display = "none";
+      updateDeviceOptions();
+      calcPrice();
+    </script>
     
-    const keyTypeSelect = document.getElementById("keyType");
-    const daysSelect = document.getElementById("days");
-    const deviceSelect = document.getElementById("deviceSelect");
-    const firstActiveCheckbox = document.getElementById("firstActive");
-    const activeContainer = document.getElementById("activeContainer");
-    const priceDisplay = document.getElementById("price");
-
-    const priceTable = {
-      kktool: {
-        1: { "unlimited": 10000, 1: 2000, 5: 5000 },
-        7: { 1: 10000, 5: 15000, 10: 20000, "unlimited": 80000 },
-        30: { 5: 30000, 10: 45000, 20: 60000, "unlimited": 120000 }
-      },
-      KK_GOLIKE_FB: {
-        1: { 1: 5000 },
-        7: { 1: 30000 },
-        30: { 1: 50000 }
-      },
-      haco: {
-        activeFee: 30000,
-        1: { 1: 1000, 10: 5000, 20: 10000, 40: 15000, "unlimited": 20000 },
-        7: { 2: 10000, 10: 30000, 20: 40000, 40: 60000, "unlimited": 70000 },
-        30: { 5: 40000, 10: 60000, 20: 80000, 40: 100000, "unlimited": 140000 }
-      }
-    };
-
-
-    function updateDeviceOptions() {
-      const type = keyTypeSelect.value;
-      const days = parseInt(daysSelect.value);
-      const pricing = priceTable[type][days];
-
-      deviceSelect.innerHTML = "";
-      for (const device in pricing) {
-        const option = document.createElement("option");
-        option.value = device;
-        option.textContent = device === "unlimited" ? "Không giới hạn" : `${device} máy`;
-        deviceSelect.appendChild(option);
-      }
-    }
-
-    function calcPrice() {
-      const type = keyTypeSelect.value;
-      const days = parseInt(daysSelect.value);
-      const devices = deviceSelect.value;
-      const isFirst = firstActiveCheckbox.checked;
-
-      const pricing = priceTable[type][days];
-      let price = pricing[devices] || 0;
-
-      if (type === "haco" && isFirst) {
-        price += priceTable.haco.activeFee;
-      }
-
-      priceDisplay.innerText = `Giá: ${price.toLocaleString()} VNĐ`;
-      return { price, devices, type, days, isFirst };
-    }
-
-
-    keyTypeSelect.addEventListener("change", () => {
-      activeContainer.style.display = keyTypeSelect.value === "kktool" ? "none" : "flex";
-      updateDeviceOptions();
-      calcPrice();
-    });
-
-    daysSelect.addEventListener("change", () => {
-      updateDeviceOptions();
-      calcPrice();
-    });
-
-    deviceSelect.addEventListener("change", calcPrice);
-    firstActiveCheckbox.addEventListener("change", calcPrice);
-
-    // Init
-    activeContainer.style.display = "none";
-    updateDeviceOptions();
-    calcPrice();
-  </script>
 </body>
 </html>
