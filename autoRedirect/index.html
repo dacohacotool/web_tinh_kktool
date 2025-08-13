@@ -27,9 +27,9 @@
         // Lấy path + query string hiện tại
         let pathAndQuery = window.location.pathname + window.location.search;
 
-        // Bỏ /autoRedirect nếu có ở đầu
-        if (pathAndQuery.startsWith("/autoRedirect")) {
-          pathAndQuery = pathAndQuery.replace("/autoRedirect", "");
+        // Bỏ /autoRedirect nếu có ở đầu path
+        if (pathAndQuery.startsWith("/web_tinh_kktool/autoRedirect")) {
+          pathAndQuery = pathAndQuery.replace("/web_tinh_kktool/autoRedirect", "");
         }
 
         // Chuyển hướng
