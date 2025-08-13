@@ -17,27 +17,26 @@
   <h1>🔄 Đang chuyển hướng, vui lòng chờ...</h1>
 
   <script>
+    // URL chứa host động
     const hostSource = "https://raw.githubusercontent.com/dacohacotool/host_kk/main/url_serverkey.txt";
 
+    // Lấy param ?url=...
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetPath = urlParams.get("url") || "/";
+
     fetch(hostSource)
-      .then(response => response.text())
+      .then(res => res.text())
       .then(host => {
         const cleanHost = host.trim();
 
-        // Lấy path + query string hiện tại
-        let pathAndQuery = window.location.pathname + window.location.search;
-
-        // Bỏ /autoRedirect nếu có ở đầu path
-        if (pathAndQuery.startsWith("/web_tinh_kktool/autoRedirect")) {
-          pathAndQuery = pathAndQuery.replace("/web_tinh_kktool/autoRedirect", "");
-        }
-
-        // Chuyển hướng
-        window.location.href = cleanHost + pathAndQuery;
+        // Redirect tới host + url
+        const redirectTo = encodeURI(cleanHost + targetPath);
+        console.log("Redirecting to:", redirectTo);
+        window.location.href = redirectTo;
       })
-      .catch(error => {
-        console.error("Không thể tải host:", error);
-        document.body.innerHTML = "<h1 style='color: red;'>❌ Không thể kết nối đến máy chủ.</h1>";
+      .catch(err => {
+        console.error("Không thể tải host:", err);
+        document.body.innerHTML = "<h1 style='color:red;'>❌ Không thể kết nối đến máy chủ.</h1>";
       });
   </script>
 </body>
