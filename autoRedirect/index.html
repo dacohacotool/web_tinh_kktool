@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đang chuyển hướng...</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background: #111;
+      color: #00d4ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔄 Đang chuyển hướng, vui lòng chờ...</h1>
+
+  <script>
+    const hostSource = "https://raw.githubusercontent.com/dacohacotool/host_kk/main/url_serverkey.txt";
+
+    fetch(hostSource)
+      .then(response => response.text())
+      .then(host => {
+        const cleanHost = host.trim();
+
+        // Lấy path + query string hiện tại
+        let pathAndQuery = window.location.pathname + window.location.search;
+
+        // Bỏ /autoRedirect nếu có ở đầu
+        if (pathAndQuery.startsWith("/autoRedirect")) {
+          pathAndQuery = pathAndQuery.replace("/autoRedirect", "");
+        }
+
+        // Chuyển hướng
+        window.location.href = cleanHost + pathAndQuery;
+      })
+      .catch(error => {
+        console.error("Không thể tải host:", error);
+        document.body.innerHTML = "<h1 style='color: red;'>❌ Không thể kết nối đến máy chủ.</h1>";
+      });
+  </script>
+</body>
+</html>
